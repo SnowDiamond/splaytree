@@ -2,17 +2,19 @@ require_relative 'lib/splay_tree'
 require 'benchmark'
 require 'splay_tree'
 require 'pry'
+require 'algorithms'
 
 max = 10**5
 
 $list = (1..max).to_a.shuffle
-$his_tree = SplayTree.new
+# $list = [10, 50, 40, 20, 30, 35, 25, 45, 60, 75, 55, 42, 47, 32]
+$his_tree = Containers::SplayTreeMap.new
 $my_tree = MySplayTree.new
 
 $list.each { |n| $his_tree[n] = n.to_s }
 $list.each { |n| $my_tree[n] = n.to_s }
 
-$count = 100
+$count = 1000
 $numbers = (1..$count).to_a.shuffle
 
 def test_tree

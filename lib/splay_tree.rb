@@ -1,7 +1,7 @@
 require_relative 'splay_tree/node'
 require 'pry'
 
-class MySplayTree
+class SplayTree
   include Enumerable
 
   attr_reader :root
@@ -9,6 +9,7 @@ class MySplayTree
   def initialize
     @root = nil
     @size = 0
+
   end
 
   def size
@@ -47,7 +48,6 @@ class MySplayTree
       node = node.right
     end
     splay(node)
-
     node.to_h
   end
 
@@ -97,6 +97,18 @@ class MySplayTree
     node.to_h
   end
 
+  def height
+    height_recursive(@root)
+  end
+
+  def height_recursive(node)
+    return 0 unless node
+
+    left_height   = 1 + height_recursive(node.left)
+    right_height  = 1 + height_recursive(node.right)
+    left_height > right_height ? left_height : right_height
+  end
+
   def get_with_duplicates(key)
     return if empty?
     get(key)
@@ -130,7 +142,6 @@ class MySplayTree
 
   def insert(key, value)
     node = Node.new(key, value)
-    return false unless node.valid?
     if @root
       current = @root
       loop do
@@ -199,16 +210,21 @@ class MySplayTree
 
   def each
     return if self.empty?
-    stack = [@root]
+    stack = []
+    node = @root
     loop do
-      node = stack.pop
-      break unless node
-      node.right && stack.push(node.right)
-      node.left && stack.push(node.left)
-      node.duplicates.each do |value|
-        stack.push(Node.new(node.key, value, node))
+      if node
+        stack.push(node)
+        node.duplicates.each do |value|
+          stack.push(Node.new(node.key, value, node))
+        end
+        node = node.left
+      else
+        break if stack.empty?
+        node = stack.pop
+        yield(node)
+        node = node.right
       end
-      yield(node)
     end
   end
 
@@ -242,46 +258,17 @@ class MySplayTree
     def splay(node)
       while !node.root? do
         parent = node.parent
-        gparent = node.gparent
         if parent.root?
-          rotate(node, parent)
-        elsif zigzig?(node)
-          rotate(parent, gparent)
-          rotate(node, parent)
+          node.rotate
+        elsif node.zigzig?
+          parent.rotate
+          node.rotate
         else
-          rotate(node, parent)
-          rotate(node, gparent)
+          node.rotate
+          node.rotate
         end
       end
       @root = node
-    end
-
-    def zigzig?(node)
-      parent = node.parent
-      return unless parent
-      (node.is_left_child? && parent.is_left_child?) ||
-        (node.is_right_child? && parent.is_right_child?)
-    end
-
-    def rotate(child, parent)
-      gparent = child.gparent
-      if gparent
-        if parent.object_id == gparent.left.object_id
-          gparent.set_left(child)
-        else
-          gparent.set_right(child)
-        end
-      else
-        child.parent = nil
-      end
-
-      if child.object_id == parent.left.object_id
-        parent.set_left(child.right)
-        child.set_right(parent)
-      else
-        parent.set_right(child.left)
-        child.set_left(parent)
-      end
     end
 
 end

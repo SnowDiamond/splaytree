@@ -1,4 +1,4 @@
-class MySplayTree
+class SplayTree
   class Node
     include Comparable
 
@@ -38,14 +38,6 @@ class MySplayTree
       parent && parent.root?
     end
 
-    def is_left_child?
-      parent && parent.left.object_id == self.object_id
-    end
-
-    def is_right_child?
-      parent && parent.right.object_id == self.object_id
-    end
-
     def gparent
       parent && parent.parent
     end
@@ -62,31 +54,34 @@ class MySplayTree
       node.parent = self
     end
 
-    # def rotate(node)
-    #   if gparent
-    #     if gparent.left == node
-    #       gparent.set_left(self)
-    #     else
-    #       gparent.set_right(self)
-    #     end
-    #   else
-    #     self.parent = nil
-    #   end
-    #   if node.left == self
-    #     node.set_left(self.right)
-    #     self.set_right(node)
-    #   else
-    #     node.set_right(self.left)
-    #     self.set_left(node)
-    #   end
-    # end
+    def rotate
+      parent = self.parent
+      gparent = self.gparent
+      if gparent
+        if parent.object_id == gparent.left.object_id
+          gparent.set_left(self)
+        else
+          gparent.set_right(self)
+        end
+      else
+        self.parent = nil
+      end
 
-    # def zigzig?
-    #   (is_left_child? && parent.is_left_child?) || (is_right_child? && parent.is_right_child?)
-    # end
+      if self.object_id == parent.left.object_id
+        parent.set_left(self.right)
+        self.set_right(parent)
+      else
+        parent.set_right(self.left)
+        self.set_left(parent)
+      end
+    end
+
+    def zigzig?
+      (self.object_id == parent.left.object_id && parent.object_id == gparent.left.object_id) ||
+        (self.object_id == parent.right.object_id && parent.object_id == gparent.right.object_id)
+    end
 
     def to_s
-      # { key: key, value: value }.to_s
       key.to_s
     end
 
@@ -102,11 +97,6 @@ class MySplayTree
     def <=>(node)
       return unless node
       self.key <=> node.key
-    end
-
-    def valid?
-      # Add validation for comparable
-      true
     end
 
   end

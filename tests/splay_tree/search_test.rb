@@ -48,22 +48,22 @@ class SplayTree::SearchTest < MiniTest::Test
     tree[20]
     tree[40]
     structure = [
-      { node: 40, parent: nil, left: 20, right: 47 },
-      { node: 20, parent: 40, left: 10, right: 32 },
-      { node: 20, parent: 20, left: nil, right: nil },
-      { node: 20, parent: 20, left: nil, right: nil },
       { node: 10, parent: 20, left: nil, right: nil },
-      { node: 32, parent: 20, left: 30, right: 35 },
-      { node: 30, parent: 32, left: 25, right: nil },
+      { node: 20, parent: 20, left: nil, right: nil },
+      { node: 20, parent: 20, left: nil, right: nil },
+      { node: 20, parent: 40, left: 10, right: 32 },
       { node: 25, parent: 30, left: nil, right: nil },
+      { node: 30, parent: 32, left: 25, right: nil },
+      { node: 32, parent: 20, left: 30, right: 35 },
       { node: 35, parent: 32, left: nil, right: nil },
-      { node: 47, parent: 40, left: 42, right: 50 },
+      { node: 40, parent: nil, left: 20, right: 47 },
       { node: 42, parent: 47, left: nil, right: 45 },
       { node: 45, parent: 42, left: nil, right: nil },
+      { node: 47, parent: 40, left: 42, right: 50 },
       { node: 50, parent: 47, left: nil, right: 55 },
       { node: 55, parent: 50, left: nil, right: 75 },
-      { node: 75, parent: 55, left: 60, right: nil },
       { node: 60, parent: 75, left: nil, right: nil },
+      { node: 75, parent: 55, left: 60, right: nil },
     ]
     assert_equal tree.report, structure
   end
