@@ -1,5 +1,4 @@
 require_relative 'splay_tree/node'
-require 'pry'
 
 class SplayTree
   include Enumerable
