@@ -48,6 +48,10 @@ class SplayTree::FeaturesTest < MiniTest::Test
     assert_equal node, { 901 => '901' }
     assert_equal @tree.root.key, 901
 
+    node = @tree.higher(900.5)
+    assert_equal node, { 901 => '901' }
+    assert_equal @tree.root.key, 901
+
     node = @tree.higher(1000)
     assert_nil node
 
@@ -60,6 +64,10 @@ class SplayTree::FeaturesTest < MiniTest::Test
     node = @tree.lower(900)
     assert_equal node, { 899 => '899' }
     assert_equal @tree.root.key, 899
+
+    node = @tree.lower(900.5)
+    assert_equal node, { 900 => '900' }
+    assert_equal @tree.root.key, 900
 
     node = @tree.lower(1)
     assert_nil node

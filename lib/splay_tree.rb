@@ -8,7 +8,6 @@ class SplayTree
   def initialize
     @root = nil
     @size = 0
-
   end
 
   def size
@@ -27,53 +26,29 @@ class SplayTree
   def higher(key)
     return if empty?
     get(key)
-    return if @root.key != key || @root.right.nil?
-    node = @root.right
-    while node.left do
-      if node.left
-        node = node.left
-      end
-    end
-    splay(node)
-    node.to_h
+    return @root.to_h if @root.key > key
+    get_one_higher_of_root
   end
 
   def lower(key)
     return if empty?
     get(key)
-    return if @root.key != key || @root.left.nil?
-    node = @root.left
-    while node.right do
-      node = node.right
-    end
-    splay(node)
-    node.to_h
+    return @root.to_h if @root.key < key
+    get_one_lower_of_root
   end
 
   def ceiling(key)
     return if empty?
     get(key)
     return @root.to_h if @root.key >= key
-    return if @root.right.nil?
-    node = @root.right
-    while node.left do
-      node = node.left
-    end
-    splay(node)
-    @root.to_h
+    get_one_higher_of_root
   end
 
   def floor(key)
     return if empty?
     get(key)
     return @root.to_h if @root.key <= key
-    return if @root.left.nil?
-    node = @root.left
-    while node.right do
-      node = node.right
-    end
-    splay(node)
-    @root.to_h
+    get_one_lower_of_root
   end
 
   def min
@@ -98,14 +73,6 @@ class SplayTree
 
   def height
     height_recursive(@root)
-  end
-
-  def height_recursive(node)
-    return 0 unless node
-
-    left_height   = 1 + height_recursive(node.left)
-    right_height  = 1 + height_recursive(node.right)
-    left_height > right_height ? left_height : right_height
   end
 
   def get_with_duplicates(key)
@@ -205,6 +172,7 @@ class SplayTree
 
   def clear
     @root = nil
+    @size = 0
   end
 
   def each
@@ -254,6 +222,36 @@ class SplayTree
 
   private
 
+    def get_one_higher_of_root
+      return if @root.right.nil?
+      node = @root.right
+      while node.left do
+        if node.left
+          node = node.left
+        end
+      end
+      splay(node)
+      node.to_h
+    end
+
+    def get_one_lower_of_root
+      return if @root.left.nil?
+      node = @root.left
+      while node.right do
+        node = node.right
+      end
+      splay(node)
+      node.to_h
+    end
+
+    def height_recursive(node)
+      return 0 unless node
+
+      left_height   = 1 + height_recursive(node.left)
+      right_height  = 1 + height_recursive(node.right)
+      left_height > right_height ? left_height : right_height
+    end
+
     def splay(node)
       while !node.root? do
         parent = node.parent
@@ -269,5 +267,4 @@ class SplayTree
       end
       @root = node
     end
-
 end
