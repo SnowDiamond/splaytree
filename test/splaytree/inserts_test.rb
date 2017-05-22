@@ -1,8 +1,8 @@
 require_relative '../test_helper.rb'
 
-class SplayTree::InsertsTest < MiniTest::Test
+class Splaytree::InsertsTest < MiniTest::Test
   def setup
-    @tree = SplayTree.new
+    @tree = Splaytree.new
   end
 
   def test_insert_node

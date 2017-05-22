@@ -1,4 +1,5 @@
-require_relative 'lib/splay_tree'
+$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+require 'splaytree'
 require 'pry'
 require 'benchmark'
 
@@ -45,3 +46,4 @@ Benchmark.bmbm do |x|
   x.report('list') { test_list }
   x.report('tree') { test_tree }
 end
+

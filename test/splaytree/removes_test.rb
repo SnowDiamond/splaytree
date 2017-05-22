@@ -1,9 +1,9 @@
 require_relative '../test_helper.rb'
 
-class SplayTree::RemovesTest < MiniTest::Test
+class Splaytree::RemovesTest < MiniTest::Test
 
   def setup
-    @tree = SplayTree.new
+    @tree = Splaytree.new
     STRUCTURED_NODES.each { |node| @tree.insert(node[0], node[1]) }
   end
 

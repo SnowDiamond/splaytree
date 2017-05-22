@@ -1,11 +1,11 @@
 require_relative '../test_helper.rb'
 
-class SplayTree::FeaturesTest < MiniTest::Test
+class Splaytree::FeaturesTest < MiniTest::Test
 
   def setup
-    @tree = SplayTree.new
+    @tree = Splaytree.new
     NODES.each { |node| @tree.insert(node[0], node[1]) }
-    @duplicate_tree = SplayTree.new
+    @duplicate_tree = Splaytree.new
     DUPLICATE_NODES.each { |node| @duplicate_tree.insert(node[0], node[1]) }
   end
 

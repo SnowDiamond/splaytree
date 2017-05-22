@@ -1,2 +1,13 @@
-/tags
+/.bundle/
+/.yardoc
 /Gemfile.lock
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+tags
+splaytree-*
+.DS_Store
+start.rb

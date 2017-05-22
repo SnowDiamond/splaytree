@@ -1,4 +1,4 @@
-class SplayTree
+class Splaytree
   class Node
     include Comparable
 

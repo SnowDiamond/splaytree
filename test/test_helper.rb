@@ -1,7 +1,10 @@
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'splaytree'
+
 require 'minitest/autorun'
 require "minitest/reporters"
+
 Minitest::Reporters.use!
-require_relative '../lib/splay_tree.rb'
 
 NODES = (1..1000).to_a.shuffle.map { |n| [n, n.to_s] }
 NODES_KEYS = NODES.map { |i| i[0] }.sort

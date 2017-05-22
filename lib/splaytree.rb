@@ -1,6 +1,7 @@
-require_relative 'splay_tree/node'
+require 'splaytree/version'
+require 'splaytree/node'
 
-class SplayTree
+class Splaytree
   include Enumerable
 
   attr_reader :root

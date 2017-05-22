@@ -1,9 +1,9 @@
 require_relative '../test_helper.rb'
 
-class SplayTree::SearchTest < MiniTest::Test
+class Splaytree::SearchTest < MiniTest::Test
 
   def setup
-    @tree = SplayTree.new
+    @tree = Splaytree.new
     NODES.each { |node| @tree.insert(node[0], node[1]) }
   end
 
@@ -35,14 +35,14 @@ class SplayTree::SearchTest < MiniTest::Test
   end
 
   def test_get_with_duplicates
-    tree = SplayTree.new
+    tree = Splaytree.new
     STRUCTURED_NODES.each { |node| tree.insert(node[0], node[1]) }
     values = tree.get_with_duplicates(20)
     assert_equal ['20', '20', '20'], values
   end
 
   def test_get_keeps_structure
-    tree = SplayTree.new
+    tree = Splaytree.new
     STRUCTURED_NODES.each { |node| tree.insert(node[0], node[1]) }
     tree[10]
     tree[20]
@@ -69,25 +69,3 @@ class SplayTree::SearchTest < MiniTest::Test
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
