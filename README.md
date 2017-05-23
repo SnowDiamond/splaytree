@@ -37,9 +37,23 @@ tree.size # => 2
 items = [40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
 items.each { |i| tree[i] = i.to_s }
 tree.size # => 16
+tree.keys # => [10, 20, 20, 20, 25, 30, 32, 35, 40, 42, 45, 47, 50, 55, 60, 75]
+tree.values # => ['10', '20', '20', '20', '25', '30', '32', '35', '40', '42', '45', '47', '50', '55', '60', '75']
 ```
 
-Note: each new item should comparable be with already inserted items.
+`Splaytree` class includes `Enumerable` module, so you can use all enumerable methods on tree instance.
+
+Update inserted item:
+
+```ruby
+# WRONG
+# tree[10] = 'ten' # inserted duplicated item with key 10
+# tree.duplicates(10) # => ['10', 'ten']
+
+# CORRECT
+tree.update(10, 'ten') # => true
+tree[10] # => 'ten'
+```
 
 ### Get item
 
@@ -73,6 +87,17 @@ tree.root.key # => 20
 This is true also for other splay tree actions (insert, remove, max, min, etc).
 
 ### Remove item
+
+```ruby
+tree.size # => 16
+tree.remove(30) # => '30'
+tree.size # => 15
+tree.key?(30) # => false
+```
+
+### Min and max
+
+
 
 
 ## Contributing
