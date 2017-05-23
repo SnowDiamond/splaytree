@@ -65,7 +65,13 @@ class Splaytree
   end
 
   def height
-    height_recursive(@root)
+    subtree_height = -> (node) do
+      return 0 unless node
+      left = 1 + subtree_height.call(node.left)
+      right = 1 + subtree_height.call(node.right)
+      left > right ? left : right
+    end
+    subtree_height.call(@root)
   end
 
   def duplicates(key)
@@ -235,14 +241,6 @@ class Splaytree
       node = node.right while node.right
       splay(node)
       node.to_h
-    end
-
-    def height_recursive(node)
-      return 0 unless node
-
-      left_height   = 1 + height_recursive(node.left)
-      right_height  = 1 + height_recursive(node.right)
-      left_height > right_height ? left_height : right_height
     end
 
     def splay(node)
