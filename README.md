@@ -138,7 +138,7 @@ Note: this is also true for all listed below methods (`higher`, `lower`, `ceilin
 
 ### Higher
 
-Returns a key-value pairs associated with the least key strictly greater than the given key, or null if there is no such key.
+Returns a key-value pairs associated with the least key strictly greater than the given key, or null if there is no such key:
 
 ```ruby
 list = (1..1000).to_a.shuffle
@@ -152,11 +152,10 @@ tree.higher(1000) # => nil
 
 ### Lower
 
-Returns a key-value pairs associated with the greatest key strictly less than the given key, or null if there is no such key.
+Returns a key-value pairs associated with the greatest key strictly less than the given key, or null if there is no such key:
 
 ```ruby
 # tree includes 1..1000 keys
-
 tree.lower(200) # => 199
 tree.lower(200.5) # => 200
 tree.lower(1) # => nil
@@ -164,11 +163,10 @@ tree.lower(1) # => nil
 
 ### Ceiling
 
-Returns a key-value pairs associated with the least key greater than or equal to the given key, or null if there is no such key.
+Returns a key-value pairs associated with the least key greater than or equal to the given key, or null if there is no such key:
 
 ```ruby
 # tree includes 1..1000 keys
-
 tree.ceiling(200) # => 200
 tree.ceiling(200.5) # => 201
 tree.ceiling(1000) # => 1000
@@ -177,11 +175,10 @@ tree.ceiling(1001) # => nil
 
 ### Floor
 
-Returns a key-value pairs associated with the greatest key less than or equal to the given key, or null if there is no such key.
+Returns a key-value pairs associated with the greatest key less than or equal to the given key, or null if there is no such key:
 
 ```ruby
 # tree includes 1..1000 keys
-
 tree.floor(200) # => 200
 tree.floor(200.5) # => 200
 tree.floor(1) # => 1
