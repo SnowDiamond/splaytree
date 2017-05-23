@@ -68,7 +68,7 @@ class Splaytree
     height_recursive(@root)
   end
 
-  def get_with_duplicates(key)
+  def duplicates(key)
     return if empty?
     get(key)
     return if @root.key != key

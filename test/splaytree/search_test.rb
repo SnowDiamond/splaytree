@@ -37,7 +37,7 @@ class Splaytree::SearchTest < MiniTest::Test
   def test_get_with_duplicates
     tree = Splaytree.new
     STRUCTURED_NODES.each { |node| tree.insert(node[0], node[1]) }
-    values = tree.get_with_duplicates(20)
+    values = tree.duplicates(20)
     assert_equal ['20', '20', '20'], values
   end
 

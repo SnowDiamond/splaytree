@@ -3,7 +3,7 @@ require 'splaytree'
 require 'pry'
 require 'benchmark'
 
-# [10, 50, 40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
+[10, 50, 40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
 
 pry binding
 

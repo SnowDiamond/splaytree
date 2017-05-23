@@ -1,5 +1,7 @@
 # Splay Tree
-Ruby implementation of [Splay tree](https://en.wikipedia.org/wiki/Splay_tree). Splay trees are designed to give especially fast access to entries that have been accessed recently, so they really excel in applications where a small fraction of the entries are the targets of most of the find operations.
+Ruby implementation of [splay tree](https://en.wikipedia.org/wiki/Splay_tree).
+
+Splay trees are designed to give especially fast access to entries that have been accessed recently, so they really excel in applications where a small fraction of the entries are the targets of most of the find operations.
 
 ## Installation
 
@@ -16,13 +18,62 @@ $ bundle install
 
 ## Usage
 
+Before any actions initialize your splay tree:
 
+```ruby
+tree = Splaytree.new
+```
 
-## Development
+### Insert items
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Allowed any objects untill they are comprable.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+tree.insert(10, '10')
+# or
+tree[50] = '50'
+tree.size # => 2
+
+items = [40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
+items.each { |i| tree[i] = i.to_s }
+tree.size # => 16
+```
+
+Each new item should comparable with already inserted items.
+
+### Get item
+
+```ruby
+tree.get(30) # => '30'
+# or
+tree[50]  # => '50'
+tree[1000]  # => nil
+
+tree.key?(60) # => true
+tree.key?(0) # => false
+
+# Get all values for duplicate items
+tree.duplicates(20) => # ['20', '20', '20']
+```
+
+Note, that after each query tree change it's structure and last accessed node become root:
+
+```ruby
+tree[10]
+tree.root.key # => 10
+
+tree[75]
+tree.root.key # => 75
+
+# Even if key not found
+tree[17]
+tree.root.key # => 20
+```
+
+This is true also for other splay tree actions (insert, remove, max, min, etc).
+
+### Remove item
+
 
 ## Contributing
 
