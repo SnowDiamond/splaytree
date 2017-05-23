@@ -37,7 +37,7 @@ class Splaytree::InsertsTest < MiniTest::Test
     assert_nil root.left
     assert_nil root.right
     assert_equal root.value, '10.2'
-    assert_equal root.has_duplicates?, true
+    assert_equal root.duplicates?, true
     assert_equal root.duplicates, ['10.1']
     assert_equal @tree.length, 2
     assert_equal @tree.keys, [10, 10]
@@ -68,7 +68,8 @@ class Splaytree::InsertsTest < MiniTest::Test
   end
 
   def test_insert_keeps_structure
-    [10, 50, 40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32].each { |n| @tree[n] = n.to_s }
+    numbers = [10, 50, 40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
+    numbers.each { |n| @tree[n] = n.to_s }
     structure = [
       { node: 10, parent: 20, left: nil, right: nil },
       { node: 20, parent: 20, left: nil, right: nil },
@@ -85,7 +86,7 @@ class Splaytree::InsertsTest < MiniTest::Test
       { node: 50, parent: 47, left: nil, right: 55 },
       { node: 55, parent: 50, left: nil, right: 75 },
       { node: 60, parent: 75, left: nil, right: nil },
-      { node: 75, parent: 55, left: 60, right: nil },
+      { node: 75, parent: 55, left: 60, right: nil }
     ]
     assert_equal @tree.report, structure
   end

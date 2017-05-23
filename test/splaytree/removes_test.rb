@@ -1,7 +1,6 @@
 require_relative '../test_helper.rb'
 
 class Splaytree::RemovesTest < MiniTest::Test
-
   def setup
     @tree = Splaytree.new
     STRUCTURED_NODES.each { |node| @tree.insert(node[0], node[1]) }
@@ -38,7 +37,7 @@ class Splaytree::RemovesTest < MiniTest::Test
       { node: 50, parent: 47, left: nil, right: 55 },
       { node: 55, parent: 50, left: nil, right: 75 },
       { node: 60, parent: 75, left: nil, right: nil },
-      { node: 75, parent: 55, left: 60, right: nil },
+      { node: 75, parent: 55, left: 60, right: nil }
     ]
     assert_equal @tree.report, structure
     assert_equal @tree.root.key, 42
@@ -62,7 +61,7 @@ class Splaytree::RemovesTest < MiniTest::Test
       { node: 47, parent: nil, left: 32, right: 55 },
       { node: 55, parent: 47, left: nil, right: 75 },
       { node: 60, parent: 75, left: nil, right: nil },
-      { node: 75, parent: 55, left: 60, right: nil },
+      { node: 75, parent: 55, left: 60, right: nil }
     ]
     assert_equal @tree.report, structure
     assert_equal @tree.root.key, 47
@@ -86,7 +85,7 @@ class Splaytree::RemovesTest < MiniTest::Test
       { node: 50, parent: 45, left: nil, right: 55 },
       { node: 55, parent: 50, left: nil, right: 75 },
       { node: 60, parent: 75, left: nil, right: nil },
-      { node: 75, parent: 55, left: 60, right: nil },
+      { node: 75, parent: 55, left: 60, right: nil }
     ]
     assert_equal @tree.report, structure
     assert_equal @tree.root.key, 45

@@ -26,8 +26,8 @@ class Splaytree
       deleted
     end
 
-    def has_duplicates?
-      @duplicates.length > 0
+    def duplicates?
+      !@duplicates.empty?
     end
 
     def root?
@@ -67,18 +67,18 @@ class Splaytree
         self.parent = nil
       end
 
-      if self.object_id == parent.left.object_id
-        parent.set_left(self.right)
-        self.set_right(parent)
+      if object_id == parent.left.object_id
+        parent.set_left(right)
+        set_right(parent)
       else
-        parent.set_right(self.left)
-        self.set_left(parent)
+        parent.set_right(left)
+        set_left(parent)
       end
     end
 
     def zigzig?
-      (self.object_id == parent.left.object_id && parent.object_id == gparent.left.object_id) ||
-        (self.object_id == parent.right.object_id && parent.object_id == gparent.right.object_id)
+      (object_id == parent.left.object_id && parent.object_id == gparent.left.object_id) ||
+        (object_id == parent.right.object_id && parent.object_id == gparent.right.object_id)
     end
 
     def to_s
@@ -94,9 +94,9 @@ class Splaytree
       [key, value]
     end
 
-    def <=>(node)
-      return unless node
-      self.key <=> node.key
+    def <=>(other)
+      return unless other
+      key <=> other.key
     end
 
   end

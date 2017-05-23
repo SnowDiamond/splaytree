@@ -4,23 +4,19 @@ require 'splaytree/node'
 class Splaytree
   include Enumerable
 
-  attr_reader :root
+  attr_reader :root, :size
+  alias_method :length, :size
 
   def initialize
     @root = nil
     @size = 0
   end
 
-  def size
-    @size
-  end
-  alias_method :length, :size
-
   def empty?
     @root.nil?
   end
 
-  def has_key?(key)
+  def key?(key)
     !!get(key)
   end
 
@@ -55,9 +51,7 @@ class Splaytree
   def min
     return if empty?
     node = @root
-    while node.left
-      node = node.left
-    end
+    node = node.left while node.left
     splay(node)
     node.to_h
   end
@@ -65,9 +59,7 @@ class Splaytree
   def max
     return if empty?
     node = @root
-    while node.right
-      node = node.right
-    end
+    node = node.right while node.right
     splay(node)
     node.to_h
   end
@@ -99,7 +91,7 @@ class Splaytree
         break if node.right.nil?
         node = node.right
       else
-        fail
+        raise TypeError, 'Keys should be comparable!'
       end
     end
     splay(node)
@@ -118,25 +110,25 @@ class Splaytree
           node.add_duplicate!(value)
           break
         when -1
-          if !current.left
+          unless current.left
             current.set_left(node)
             break
           end
           current = current.left
         when 1
-          if !current.right
+          unless current.right
             current.set_right(node)
             break
           end
           current = current.right
         else
-          fail
+          raise TypeError, 'Keys should be comparable!'
         end
       end
     end
     splay(node)
     @size += 1
-    return true
+    true
   end
   alias_method :[]=, :insert
 
@@ -145,14 +137,14 @@ class Splaytree
     get(key)
     return false if @root.key != key
     @root.value = value
-    return true
+    true
   end
 
   def remove(key)
     return if empty?
     get(key)
     return if @root.key != key
-    if @root.has_duplicates?
+    if @root.duplicates?
       deleted = @root.remove_duplicate!
     else
       deleted = @root.value
@@ -177,7 +169,7 @@ class Splaytree
   end
 
   def each
-    return if self.empty?
+    return if empty?
     stack = []
     node = @root
     loop do
@@ -196,11 +188,11 @@ class Splaytree
     end
   end
 
-  def each_key(&block)
+  def each_key
     each { |node| yield node.key }
   end
 
-  def each_value(&block)
+  def each_value
     each { |node| yield node.value }
   end
 
@@ -215,8 +207,14 @@ class Splaytree
   def report
     return if empty?
     result = []
-    each_with_index do |node, index|
-      result << { node: node.key, parent: node.parent&.key, left: node.left&.key, right: node.right&.key }
+    each do |node|
+      item = {
+        node: node.key,
+        parent: node.parent && node.parent.key,
+        left: node.left && node.left.key,
+        right: node.right && node.right.key
+      }
+      result << item
     end
     result
   end
@@ -226,11 +224,7 @@ class Splaytree
     def get_one_higher_of_root
       return if @root.right.nil?
       node = @root.right
-      while node.left do
-        if node.left
-          node = node.left
-        end
-      end
+      node = node.left while node.left
       splay(node)
       node.to_h
     end
@@ -238,9 +232,7 @@ class Splaytree
     def get_one_lower_of_root
       return if @root.left.nil?
       node = @root.left
-      while node.right do
-        node = node.right
-      end
+      node = node.right while node.right
       splay(node)
       node.to_h
     end
@@ -254,7 +246,7 @@ class Splaytree
     end
 
     def splay(node)
-      while !node.root? do
+      until node.root?
         parent = node.parent
         if parent.root?
           node.rotate

@@ -33,7 +33,7 @@ class Splaytree::RotationsTest < MiniTest::Test
   def test_zigzig_left
     gparent = parent = child = nil
     loop do
-      @tree[@numbers.shuffle.first]
+      @tree[@numbers.sample]
       gparent = @tree.root
       parent = gparent.left
       next unless parent
@@ -65,7 +65,7 @@ class Splaytree::RotationsTest < MiniTest::Test
   def test_zigzig_right
     gparent = parent = child = nil
     loop do
-      @tree[@numbers.shuffle.first]
+      @tree[@numbers.sample]
       gparent = @tree.root
       parent = gparent.right
       next unless parent
@@ -97,7 +97,7 @@ class Splaytree::RotationsTest < MiniTest::Test
   def test_zigzag_left
     gparent = parent = child = nil
     loop do
-      @tree[@numbers.shuffle.first]
+      @tree[@numbers.sample]
       gparent = @tree.root
       parent = gparent.left
       next unless parent

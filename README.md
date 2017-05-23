@@ -1,28 +1,22 @@
-# Splaytree
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/splaytree`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+# Splay Tree
+Ruby implementation of [Splay tree](https://en.wikipedia.org/wiki/Splay_tree). Splay trees are designed to give especially fast access to entries that have been accessed recently, so they really excel in applications where a small fraction of the entries are the targets of most of the find operations.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install from RubyGems by adding it to your Gemfile, then bundling.
 
 ```ruby
+# Gemfile
 gem 'splaytree'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install splaytree
+```
+$ bundle install
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+
 
 ## Development
 

@@ -63,7 +63,7 @@ class Splaytree::SearchTest < MiniTest::Test
       { node: 50, parent: 47, left: nil, right: 55 },
       { node: 55, parent: 50, left: nil, right: 75 },
       { node: 60, parent: 75, left: nil, right: nil },
-      { node: 75, parent: 55, left: 60, right: nil },
+      { node: 75, parent: 55, left: 60, right: nil }
     ]
     assert_equal tree.report, structure
   end
