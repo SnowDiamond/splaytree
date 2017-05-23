@@ -33,6 +33,7 @@ tree.insert(10, '10')
 # or
 tree[50] = '50'
 tree.size # => 2
+tree.empty? # => false
 
 items = [40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
 items.each { |i| tree[i] = i.to_s }
@@ -97,8 +98,127 @@ tree.key?(30) # => false
 
 ### Min and max
 
+```ruby
+tree.min # => 'ten'
+tree.max # => '75'
+```
 
+Splay tree like others binary search trees especially good for fast queries:
 
+```ruby
+require 'benchmark'
+
+list = (1..10**6).to_a.shuffle
+tree = Splaytree.new
+list.each { |n| tree[n] = n.to_s }
+
+Benchmark.bmbm do |x|
+  x.report('list_min') { list.min }
+  x.report('tree_min') { tree.min }
+  x.report('list_max') { list.max }
+  x.report('tree_max') { tree.max }
+end
+
+# Rehearsal --------------------------------------------
+# list_min   0.070000   0.000000   0.070000 (  0.069333)
+# tree_min   0.000000   0.000000   0.000000 (  0.000049)
+# list_max   0.060000   0.000000   0.060000 (  0.057221)
+# tree_max   0.000000   0.000000   0.000000 (  0.000038)
+# ----------------------------------- total: 0.130000sec
+#
+#                user     system      total        real
+# list_min   0.060000   0.000000   0.060000 (  0.059667)
+# tree_min   0.000000   0.000000   0.000000 (  0.000020)
+# list_max   0.060000   0.000000   0.060000 (  0.055789)
+# tree_max   0.000000   0.000000   0.000000 (  0.000020)
+```
+
+Of course, on your local machine scores will be different, but ratio will be same.
+Note: this is also true for all listed below methods (`higher`, `lower`, `ceiling`, `floor`).
+
+### Higher
+
+Returns a key-value pairs associated with the least key strictly greater than the given key, or null if there is no such key.
+
+```ruby
+list = (1..1000).to_a.shuffle
+tree = Splaytree.new
+list.each { |n| tree[n] = n.to_s }
+
+tree.higher(200) # => 201
+tree.higher(200.5) # => 201
+tree.higher(1000) # => nil
+```
+
+### Lower
+
+Returns a key-value pairs associated with the greatest key strictly less than the given key, or null if there is no such key.
+
+```ruby
+# tree includes 1..1000 keys
+
+tree.lower(200) # => 199
+tree.lower(200.5) # => 200
+tree.lower(1) # => nil
+```
+
+### Ceiling
+
+Returns a key-value pairs associated with the least key greater than or equal to the given key, or null if there is no such key.
+
+```ruby
+# tree includes 1..1000 keys
+
+tree.ceiling(200) # => 200
+tree.ceiling(200.5) # => 201
+tree.ceiling(1000) # => 1000
+tree.ceiling(1001) # => nil
+```
+
+### Floor
+
+Returns a key-value pairs associated with the greatest key less than or equal to the given key, or null if there is no such key.
+
+```ruby
+# tree includes 1..1000 keys
+
+tree.floor(200) # => 200
+tree.floor(200.5) # => 200
+tree.floor(1) # => 1
+tree.floor(0) # => nil
+```
+
+### Review tree structure
+
+You can iterate all nodes in tree and build any data representation, however several methods already included:
+
+```ruby
+numbers = [10, 50, 40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
+numbers.each { |n| tree[n] = n.to_s }
+
+tree.report
+# =>
+# [
+#   { node: 10, parent: 20, left: nil, right: nil },
+#   { node: 20, parent: 20, left: nil, right: nil },
+#   { node: 20, parent: 20, left: nil, right: nil },
+#   { node: 20, parent: 32, left: 10, right: 30 },
+#   { node: 25, parent: 30, left: nil, right: nil },
+#   { node: 30, parent: 20, left: 25, right: nil },
+#   { node: 32, parent: nil, left: 20, right: 47 },
+#   { node: 35, parent: 42, left: nil, right: 40 },
+#   { node: 40, parent: 35, left: nil, right: nil },
+#   { node: 42, parent: 47, left: 35, right: 45 },
+#   { node: 45, parent: 42, left: nil, right: nil },
+#   { node: 47, parent: 32, left: 42, right: 50 },
+#   { node: 50, parent: 47, left: nil, right: 55 },
+#   { node: 55, parent: 50, left: nil, right: 75 },
+#   { node: 60, parent: 75, left: nil, right: nil },
+#   { node: 75, parent: 55, left: 60, right: nil }
+# ]
+
+tree.height # => 6
+```
 
 ## Contributing
 
