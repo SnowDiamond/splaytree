@@ -16,7 +16,7 @@ gem 'splaytree'
 $ bundle install
 ```
 
-## Usage
+## Getting Started
 
 Before any actions initialize your splay tree:
 
@@ -26,7 +26,7 @@ tree = Splaytree.new
 
 ### Insert items
 
-Allowed any objects untill they are comprable.
+You can insert any objects untill they are comparable.
 
 ```ruby
 tree.insert(10, '10')
@@ -39,7 +39,7 @@ items.each { |i| tree[i] = i.to_s }
 tree.size # => 16
 ```
 
-Each new item should comparable with already inserted items.
+Note: each new item should comparable be with already inserted items.
 
 ### Get item
 
@@ -56,7 +56,7 @@ tree.key?(0) # => false
 tree.duplicates(20) => # ['20', '20', '20']
 ```
 
-Note, that after each query tree change it's structure and last accessed node become root:
+Note that after each query tree will change it's structure and last accessed node become root:
 
 ```ruby
 tree[10]
