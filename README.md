@@ -190,29 +190,31 @@ tree.floor(0) # => nil
 You can iterate all nodes in tree and build any data representation, however several methods already included:
 
 ```ruby
-numbers = [10, 50, 40, 20, 30, 35, 25, 20, 20, 45, 60, 75, 55, 42, 47, 32]
+numbers = [1, 2, 3, 5, 6, 7, 4]
 numbers.each { |n| tree[n] = n.to_s }
 
 tree.report
+# => [
+#  {:node=>1, :parent=>2, :left=>nil, :right=>nil}
+#  {:node=>2, :parent=>3, :left=>1, :right=>nil}
+#  {:node=>3, :parent=>4, :left=>2, :right=>nil}
+#  {:node=>4, :parent=>nil, :left=>3, :right=>6}
+#  {:node=>5, :parent=>6, :left=>nil, :right=>nil}
+#  {:node=>6, :parent=>4, :left=>5, :right=>7}
+#  {:node=>7, :parent=>6, :left=>nil, :right=>nil}
+#]
+
+# Diplay turned tree structure:
+tree.display
 # =>
-# [
-#   { node: 10, parent: 20, left: nil, right: nil },
-#   { node: 20, parent: 20, left: nil, right: nil },
-#   { node: 20, parent: 20, left: nil, right: nil },
-#   { node: 20, parent: 32, left: 10, right: 30 },
-#   { node: 25, parent: 30, left: nil, right: nil },
-#   { node: 30, parent: 20, left: 25, right: nil },
-#   { node: 32, parent: nil, left: 20, right: 47 },
-#   { node: 35, parent: 42, left: nil, right: 40 },
-#   { node: 40, parent: 35, left: nil, right: nil },
-#   { node: 42, parent: 47, left: 35, right: 45 },
-#   { node: 45, parent: 42, left: nil, right: nil },
-#   { node: 47, parent: 32, left: 42, right: 50 },
-#   { node: 50, parent: 47, left: nil, right: 55 },
-#   { node: 55, parent: 50, left: nil, right: 75 },
-#   { node: 60, parent: 75, left: nil, right: nil },
-#   { node: 75, parent: 55, left: 60, right: nil }
-# ]
+#
+#          7
+#     6
+#          5
+# 4
+#     3
+#          2
+#               1
 
 tree.height # => 6
 ```
