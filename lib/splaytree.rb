@@ -210,6 +210,16 @@ class Splaytree
     to_enum(:each_value).to_a
   end
 
+  def display
+    print_tree = -> (node, depth) do
+      return unless node
+      print_tree.call(node.right, depth + 1)
+      puts node.key.to_s.rjust(7*depth, ' ')
+      print_tree.call(node.left, depth + 1)
+    end
+    print_tree.call(@root, 0)
+  end
+
   def report
     return if empty?
     result = []
