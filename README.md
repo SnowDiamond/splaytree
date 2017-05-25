@@ -216,7 +216,7 @@ tree.display
 #          2
 #               1
 
-tree.height # => 6
+tree.height # => 4
 ```
 
 ## Contributing
